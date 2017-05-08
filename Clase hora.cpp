@@ -102,3 +102,36 @@ public:
 		
 	// 
 };
+
+
+// Problemas.cpp: archivo de proyecto principal.
+
+#include "stdafx.h"
+#include <iostream>
+#include "Hora.h"
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	Hora *horaInicial = new Hora(1,59,70);
+	Hora *horaFinal = new Hora(3,5,12);
+
+	horaInicial->Mostrar();
+	horaFinal->Mostrar();
+	try
+	{
+		horaInicial->Restar(*horaFinal);
+	}
+	catch (string ex)
+	{
+		cout << ex << endl;
+	}
+	
+
+	horaInicial->Mostrar();
+	//3,35,45
+    system("PAUSE");
+    return 0;
+}
