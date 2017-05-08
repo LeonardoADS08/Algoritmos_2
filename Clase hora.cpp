@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+using namespace std;
 class Hora
 {
 private:
@@ -60,19 +61,44 @@ public:
 	}
 
 	// horainicial(3,15,10);
-	// horafinal(1,5,12);
+	// horafinal(1,30,12);
 	// horainicial.Sumar(horafinal)
 	// horainicial = (4, 20, 22);
 	
 	void Restar(Hora val)
 	{
-		_horas -= val.Horas();
-		Minutos(_minutos - val.Minutos());
-		Segundos(_segundos - val.Segundos());
+		int auxH = _horas - val.Horas();
+		int auxM, auxS;
+		if (val.Minutos() > _minutos)
+		{
+			auxM = _minutos + 60 - val.Minutos();
+			auxH--;
+		}
+		else auxM = _minutos - val.Minutos();
+		if (val.Segundos() > _segundos)
+		{
+			auxS = _segundos + 60 - val.Segundos();
+			auxM--;
+		}
+		else auxS = _segundos - val.Segundos();
+
+		if (auxH < 0)
+		{
+			string exMessage = "No es posible realizar esta operacion, la cantidad de horas es menor a cero";
+			throw exMessage;
+		}
+		else
+		{
+			_horas = auxH;
+			_minutos = auxM;
+			_segundos = auxS;
+		}
 	}
 
 	void Mostrar()
 	{
-		std::cout << _horas << ":"	<< _minutos << ":" << _segundos << "\n";
+		cout << _horas << ":"	<< _minutos << ":" << _segundos << endl;
 	}
+		
+	// 
 };
