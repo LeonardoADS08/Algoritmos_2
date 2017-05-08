@@ -67,6 +67,7 @@ public:
 	
 	void Restar(Hora val)
 	{
+		throw 1;
 		int auxH = _horas - val.Horas();
 		int auxM, auxS;
 		if (val.Minutos() > _minutos)
@@ -84,7 +85,7 @@ public:
 
 		if (auxH < 0)
 		{
-			string exMessage = "No es posible realizar esta operacion, la cantidad de horas es menor a cero";
+			string exMessage = "No es posible realizar esta operacion, la cantidad de horas es menor a cero.";
 			throw exMessage;
 		}
 		else
@@ -95,6 +96,9 @@ public:
 		}
 	}
 
+	void Objeto(Hora val) { *this = val; }
+	Hora Objeto() { return *this; }
+
 	void Mostrar()
 	{
 		cout << _horas << ":"	<< _minutos << ":" << _segundos << endl;
@@ -103,6 +107,84 @@ public:
 	// 
 };
 
+#pragma once
+#include "Hora.h"
+#include <iostream>
+using namespace std;
+class Fecha : public Hora
+{
+private:
+	int _dia, _mes, _anho;
+
+public:
+	Fecha()
+	{
+		_dia = _mes = _anho = 0;
+		Horas(0);
+		Minutos(0);
+		Segundos(0);
+	}
+
+	Fecha(int dia, int mes, int anho, Hora horaActual)
+	{
+		_dia = dia;
+		_mes = mes;
+		_anho = anho;
+		Hora::Objeto(horaActual);
+	}
+
+	void Dia(int val) { _dia = val; }
+	int Dia() { return _dia; }
+
+	void Mes(int val) { _mes = val; }
+	int Mes() { return _mes; }
+
+	void Anho(int val) { _anho = val; }
+	int Anho() { return _anho; }
+
+	void Sumar(Fecha val)
+	{
+		if (val.Dia() + _dia > 30)
+		{
+			_mes += (val.Dia() + _dia) / 30;
+			_dia = (val.Dia() + _dia) % 30;
+		}
+		else _dia += val.Dia();
+		if (val.Mes() + _mes > 12)
+		{
+			_anho += (val.Mes() + _mes) / 12;
+			_mes = (val.Mes() + _mes) % 12;
+		}
+		else _mes += val.Mes();
+		_anho += val.Anho();
+	}
+
+	void Restar(Fecha val)
+	{
+		if (val.Dia() + _dia > 30)
+		{
+			_mes += (val.Dia() + _dia) / 30;
+			_dia = (val.Dia() + _dia) % 30;
+		}
+		else _dia += val.Dia();
+		if (val.Mes() + _mes > 12)
+		{
+			_anho += (val.Mes() + _mes) / 12;
+			_mes = (val.Mes() + _mes) % 12;
+		}
+		else _mes += val.Mes();
+		_anho += val.Anho();
+	}
+
+	void Mostrar()
+	{
+		cout << _dia << "/" << _mes << "/" << _anho << " - " << Horas() << ":" << Minutos() << ":" << Segundos() << endl;
+	}
+
+	void Objeto(Fecha val) { *this = val; }
+	Fecha Objeto() { return *this; }
+
+};
 
 // Problemas.cpp: archivo de proyecto principal.
 
@@ -110,28 +192,19 @@ public:
 #include <iostream>
 #include "Hora.h"
 #include <string>
-
+#include "Fecha.h"
 using namespace std;
 
 int main()
 {
 	Hora *horaInicial = new Hora(1,59,70);
-	Hora *horaFinal = new Hora(3,5,12);
+	Fecha *fechaInicial = new Fecha(8, 12, 2000, *horaInicial);
 
-	horaInicial->Mostrar();
-	horaFinal->Mostrar();
-	try
-	{
-		horaInicial->Restar(*horaFinal);
-	}
-	catch (string ex)
-	{
-		cout << ex << endl;
-	}
-	
+	fechaInicial->Mostrar();
 
-	horaInicial->Mostrar();
-	//3,35,45
+
+
     system("PAUSE");
     return 0;
 }
+
