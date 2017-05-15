@@ -7,6 +7,7 @@ template<class T> class Arreglo
 private:
 	T _datos[MAXN];
 	int _tam;
+
 public:
 	Arreglo(void);
 
@@ -39,18 +40,6 @@ T Arreglo<T>::Datos(int pos)
 }
 
 template<class T>
-void Arreglo<T>::Objeto(Arreglo<T> obj)
-{
-	*this = obj;
-}
-
-template<class T>
-Arreglo<T> Arreglo<T>::Objeto()
-{
-	return *this;
-}
-
-template<class T>
 void Arreglo<T>::Tamano(int nuevoTamano)
 {
 	_tam = nuevoTamano;
@@ -60,4 +49,16 @@ template<class T>
 int Arreglo<T>::Tamano()
 {
 	return _tam;
+}
+
+template<class T>
+void Arreglo<T>::Objeto(Arreglo<T> obj)
+{
+	*this = obj;
+}
+
+template<class T>
+Arreglo<T> Arreglo<T>::Objeto()
+{
+	return *this;
 }
