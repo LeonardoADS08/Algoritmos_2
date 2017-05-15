@@ -13,6 +13,9 @@ public:
 	void Datos(int pos, T dato);
 	T Datos(int pos);
 
+	void Tamano(int nuevoTamano);
+	int Tamano();
+
 	void Objeto(Arreglo<T> obj);
 	Arreglo<T> Objeto();
 };
@@ -32,7 +35,7 @@ void Arreglo<T>::Datos(int pos, T dato)
 template<class T>
 T Arreglo<T>::Datos(int pos)
 {
-	return _datos[T];
+	return _datos[pos];
 }
 
 template<class T>
@@ -45,4 +48,16 @@ template<class T>
 Arreglo<T> Arreglo<T>::Objeto()
 {
 	return *this;
+}
+
+template<class T>
+void Arreglo<T>::Tamano(int nuevoTamano)
+{
+	_tam = nuevoTamano;
+}
+
+template<class T>
+int Arreglo<T>::Tamano()
+{
+	return _tam;
 }
