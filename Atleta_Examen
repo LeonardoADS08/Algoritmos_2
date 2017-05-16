@@ -1,0 +1,76 @@
+#pragma once
+#include "Deporte.h"
+#include "Arreglo.h"
+#include "Inspeccion.h"
+#include <iostream>
+
+using namespace std;
+
+class Atleta
+{
+private:
+	string _nombre, _codigo;
+	Arreglo<Deporte> _deportesPracticados;
+	Arreglo<Inspeccion> _historialInspecciones;
+
+public:
+	Atleta(void);
+
+	void Nombre(string nuevoNombre);
+	string Nombre();
+
+	void Codigo(string nuevoCodigo);
+	string Codigo();
+
+	void DeportesPracticados(int pos, Deporte dep);
+	Deporte DeportesPracticados(int pos);
+
+	int PruebasPositivas();
+};
+
+
+Atleta::Atleta()
+{
+	_nombre = "";
+	_codigo = "";
+}
+
+void Atleta::Nombre(string nuevoNombre)
+{
+	_nombre = nuevoNombre;
+}
+
+string Atleta::Nombre()
+{
+	return _nombre;
+}
+
+void Atleta::Codigo(string nuevoCodigo)
+{
+	_codigo = nuevoCodigo;
+}
+
+string Atleta::Codigo()
+{
+	return _codigo;
+}
+
+void Atleta::DeportesPracticados(int pos, Deporte dep)
+{
+	_deportesPracticados.Datos(pos, dep);
+}
+
+Deporte Atleta::DeportesPracticados(int pos)
+{
+	return _deportesPracticados.Datos(pos);
+}
+
+ int Atleta::PruebasPositivas()
+ {
+	 int res = 0;
+	 for(int i = 0; i < _historialInspecciones.Tamano(); ++i)
+	 {
+		 if (_historialInspecciones.Datos(i).RealizarDiagnostico()) res++;
+	 }
+	 return res;
+ }
