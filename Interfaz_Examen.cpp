@@ -106,12 +106,18 @@ void Interfaz::CargarMedicamentos(DataGridView^ tabla)
 	tabla->Columns[1]->Name = "Nombre";
 	tabla->Columns[2]->Name = "Descripción";
 	tabla->Columns[3]->Name = "Nocivo";
-	tabla->RowCount = _atletas.Tamano();
-	for(int i = 0; i < _atletas.Tamano(); ++i)
+	tabla->RowCount = _medicamentos.Tamano();
+	for(int i = 0; i < _medicamentos.Tamano(); ++i)
 	{
-		string auxCodigo = _atletas.Datos(i).Codigo();
-		string auxNombre = _atletas.Datos(i).Nombre();
+		string auxCodigo = _medicamentos.Datos(i).Codigo();
+		string auxNombre = _medicamentos.Datos(i).Nombre();
+		string auxDescripcion = _medicamentos.Datos(i).Descripcion();
+		string auxNocivo = "";
+		if (_medicamentos.Datos(i).Nocivo()) auxNocivo = "Es nocivo";
+		else auxNocivo = "No es nocivo";
 		tabla->Rows[i]->Cells[0]->Value = gcnew String(auxCodigo.c_str());
 		tabla->Rows[i]->Cells[1]->Value = gcnew String(auxNombre.c_str());
+		tabla->Rows[i]->Cells[2]->Value = gcnew String(auxDescripcion.c_str());
+		tabla->Rows[i]->Cells[3]->Value = gcnew String(auxNocivo.c_str());
 	}
 }
